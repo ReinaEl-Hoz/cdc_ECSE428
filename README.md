@@ -5,5 +5,5 @@ Some notes to use for slide deck
 At this stage, the complete unit test suite has been written according to the
 Comprehensive Unit Test Summary Table provided in the assignment.
 
-The test file is located at: tests/test_calculator.py
+  The test file is located at: tests/test_calculator.py
 
