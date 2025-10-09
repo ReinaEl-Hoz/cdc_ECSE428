@@ -37,6 +37,7 @@ def interactive_mode():
 
 def batch_mode(cmds):
     cdc = CDC()
+    print_welcome_message()
     for cmd in cmds:
         res = cdc.execute(cmd)
         if res:
