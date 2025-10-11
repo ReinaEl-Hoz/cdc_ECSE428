@@ -13,7 +13,6 @@ def print_welcome_message():
     print("  MUL              - Multiply top two stack values")
     print("  DIV              - Divide top two stack values")
     print("  DELETE           - Remove top stack value without printing")
-    print("  To exit          - CTRL + C")
     print("\nNumber formats:")
     print("  Real:    5, -2.5, 3.14")
     print("  Complex: 3+j4, -2.5-j0.25, j5, 1+j1")
