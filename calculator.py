@@ -2,6 +2,7 @@ import cmd
 import re
 import sys
 import math
+import cmath
 
 class CDC(cmd.Cmd):
     intro = "Welcome to our calculator CLI!"
@@ -95,7 +96,34 @@ class CDC(cmd.Cmd):
         imag_part = math.cos(a) * math.sinh(b)
         result = complex(round(real_part,9), round(imag_part,9))
         self.stack.append(result)
+        
+    def do_ASIN(self, arg):
+        """arcsine of last stack value"""
+        if len(self.stack) == 0:
+            print("Error: stack underflow", file=sys.stderr)
+            return
+        
+        z = self.stack.pop()
+        # asin(z) = -j * ln( j*z + sqrt(1 - z^2) )
+        j = complex(0, 1)
+        result = -j * cmath.log(j * z + cmath.sqrt(1 - z**2))
+        result = complex(self.trunc(result.real, 9), self.trunc(result.imag, 9))
+        self.stack.append(result)
+    
+    def do_COS(self, arg):
+        """cosine of last stack value"""
+        if len(self.stack) == 0:
+            print("Error: stack underflow", file=sys.stderr)
+            return
+        
+        z = self.stack.pop()
+        a, b = z.real, z.imag
 
+        real_part = math.cos(a) * math.cosh(b)
+        imag_part = -math.sin(a) * math.sinh(b)
+        result = complex(round(real_part,9), round(imag_part,9)) 
+        self.stack.append(result)
+        
     def do_exit(self, args=None):
         """Exit CLI"""
         print("Exiting the calculator!")
@@ -138,6 +166,10 @@ class CDC(cmd.Cmd):
         if num == int(num):
             return int(num)
         return num
-
+    
+    def trunc(self, x, n):
+        factor = 10 ** n
+        return math.trunc(x * factor) / factor
+    
 if __name__ == "__main__":
     CDC().cmdloop()
