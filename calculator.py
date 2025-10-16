@@ -1,6 +1,7 @@
 import cmd
 import re
 import sys
+import math
 
 class CDC(cmd.Cmd):
     intro = "Welcome to our calculator CLI!"
@@ -80,6 +81,20 @@ class CDC(cmd.Cmd):
         magnitude = abs(z)
         self.stack.append(magnitude)
         
+    def do_SIN(self, args=None):
+        """sine of last stack value"""
+        if len(self.stack) == 0:
+            print("Error: stack underflow", file=sys.stderr)
+            return
+
+        z = self.stack.pop()
+        a, b = z.real, z.imag
+        
+        # sin(a + jb) = sin(a)*cosh(b) + j*cos(a)*sinh(b)
+        real_part = math.sin(a) * math.cosh(b)
+        imag_part = math.cos(a) * math.sinh(b)
+        result = complex(round(real_part,9), round(imag_part,9))
+        self.stack.append(result)
 
     def do_exit(self, args=None):
         """Exit CLI"""
