@@ -7,8 +7,9 @@ from calculator import CDC
 def test_push_real1(capsys):
     # operation: push/pop (real)
     cdc = CDC()
-    cdc.onecmd("push 5")
-    cdc.onecmd("pop")
+    cmd_List = ["push 5", "pop"]
+    for cmd in cmd_List:
+        cdc.onecmd(cmd)
     captured = capsys.readouterr()
     assert captured.out.strip() == "5 + j0"
 
@@ -16,8 +17,9 @@ def test_push_real1(capsys):
 def test_push_cplx1(capsys):
     # operation: push/pop (complex, compact)
     cdc = CDC()
-    cdc.onecmd("push -2.5-j0.25")
-    cdc.onecmd("pop")
+    cmd_List = ["push -2.5-j0.25", "pop"]
+    for cmd in cmd_List:
+        cdc.onecmd(cmd)
     captured = capsys.readouterr()
     assert captured.out.strip() == "-2.5 - j0.25"
 
@@ -25,8 +27,9 @@ def test_push_cplx1(capsys):
 def test_push_cplx2(capsys):
     # operation: push/pop (complex, spaced)
     cdc = CDC()
-    cdc.onecmd("push 3 + j 4")
-    cdc.onecmd("pop")
+    cmd_List = ["push 3 + j 4", "pop"]
+    for cmd in cmd_List:
+        cdc.onecmd(cmd)
     captured = capsys.readouterr()
     assert captured.out.strip() == "3 + j4"
 
@@ -42,10 +45,9 @@ def test_pop_err1(capsys):
 def test_add_real1(capsys):
     # operation: add (real)
     cdc = CDC()
-    cmd_List = ["push 2", "push 5", "add"]
+    cmd_List = ["push 2", "push 5", "add", "pop"]
     for cmd in cmd_List:
         cdc.onecmd(cmd)
-    cdc.onecmd("pop")
     captured = capsys.readouterr()
     assert captured.out.strip() == "7 + j0"
 
@@ -53,10 +55,9 @@ def test_add_real1(capsys):
 def test_add_cplx1(capsys):
     # operation: add (complex)
     cdc = CDC()
-    cmd_List = ["push 3+j4", "push 1-j2", "add"]
+    cmd_List = ["push 3+j4", "push 1-j2", "add", "pop"]
     for cmd in cmd_List:
         cdc.onecmd(cmd)
-    cdc.onecmd("pop")
     captured = capsys.readouterr()
     assert captured.out.strip() == "4 + j2"
 
@@ -64,8 +65,9 @@ def test_add_cplx1(capsys):
 def test_add_err1(capsys):
     # operation: add (error)
     cdc = CDC()
-    cdc.onecmd("push 3")
-    cdc.onecmd("add")
+    cmd_List = ["push 3", "add"]
+    for cmd in cmd_List:
+        cdc.onecmd(cmd)
     captured = capsys.readouterr()
     assert captured.err.strip() == "Error: stack underflow"
 
@@ -73,10 +75,9 @@ def test_add_err1(capsys):
 def test_sub_real1(capsys):
     # operation: sub (real)
     cdc = CDC()
-    cmd_List = ["push 5", "push 2", "sub"]
+    cmd_List = ["push 5", "push 2", "sub", "pop"]
     for cmd in cmd_List:
         cdc.onecmd(cmd)
-    cdc.onecmd("pop")
     captured = capsys.readouterr()
     assert captured.out.strip() == "3 + j0"
 
@@ -85,10 +86,9 @@ def test_sub_real1(capsys):
 def test_sub_cplx1(capsys):
     # operation: sub (complex)
     cdc = CDC()
-    cmd_List = ["push 3+j4", "push 1-j2", "sub"]
+    cmd_List = ["push 3+j4", "push 1-j2", "sub", "pop"]
     for cmd in cmd_List:
         cdc.onecmd(cmd)
-    cdc.onecmd("pop")
     captured = capsys.readouterr()
     assert captured.out.strip() == "2 + j6"
        
@@ -104,10 +104,9 @@ def test_sub_err1(capsys):
 def test_mul_real1(capsys):
     # operation: mul (real)
     cdc = CDC()
-    cmd_List = ["push 3", "push -2", "mul"]
+    cmd_List = ["push 3", "push -2", "mul", "pop"]
     for cmd in cmd_List:
         cdc.onecmd(cmd)
-    cdc.onecmd("pop")
     captured = capsys.readouterr()
     assert captured.out.strip() == "-6 + j0"
 
@@ -115,10 +114,9 @@ def test_mul_real1(capsys):
 def test_mul_cplx1(capsys):
     # operation: mul (complex)
     cdc = CDC()
-    cmd_List = ["push 1+j2", "push 3-j4", "mul"]
+    cmd_List = ["push 1+j2", "push 3-j4", "mul", "pop"]
     for cmd in cmd_List:
         cdc.onecmd(cmd)
-    cdc.onecmd("pop")
     captured = capsys.readouterr()
     assert captured.out.strip() == "11 + j2"
 
@@ -134,10 +132,9 @@ def test_mul_err1(capsys):
 def test_div_real1(capsys):
     # operation: div (real)
     cdc = CDC()
-    cmd_List = ["push 8", "push 2", "div"]
+    cmd_List = ["push 8", "push 2", "div", "pop"]
     for cmd in cmd_List:
         cdc.onecmd(cmd)
-    cdc.onecmd("pop")
     captured = capsys.readouterr()
     assert captured.out.strip() == "4 + j0"
 
@@ -145,10 +142,9 @@ def test_div_real1(capsys):
 def test_div_cplx1(capsys):
     # operation: div (complex)
     cdc = CDC()
-    cmd_List = ["push 4+j2", "push 1+j1", "div"]
+    cmd_List = ["push 4+j2", "push 1+j1", "div", "pop"]
     for cmd in cmd_List:
         cdc.onecmd(cmd)
-    cdc.onecmd("pop")
     captured = capsys.readouterr()
     assert captured.out.strip() == "3 - j1"
 
@@ -176,10 +172,9 @@ def test_div_err2(capsys):
 def test_del_real1(capsys):
     # operation: delete (real stack)
     cdc = CDC()
-    cmd_list = ["push 1", "push 2", "delete"]
+    cmd_list = ["push 1", "push 2", "delete", "pop"]
     for cmd in cmd_list:
         cdc.onecmd(cmd)
-    cdc.onecmd("pop")
     captured = capsys.readouterr()
     assert captured.out.strip() == "1 + j0"
 
@@ -187,10 +182,9 @@ def test_del_real1(capsys):
 def test_del_cplx1(capsys):
     # operation: delete (complex stack)
     cdc = CDC()
-    cmd_list = ["push 1+j1", "push 2+j3", "delete"]
+    cmd_list = ["push 1+j1", "push 2+j3", "delete", "pop"]
     for cmd in cmd_list:
         cdc.onecmd(cmd)
-    cdc.onecmd("pop")
     captured = capsys.readouterr()
     assert captured.out.strip() == "1 + j1"
 
