@@ -168,6 +168,14 @@ def test_div_err2(capsys):
     captured = capsys.readouterr()
     assert captured.err.strip() == "Error: division by zero"
 
+# T-DIV-ERR3
+def test_div_err3(capsys):
+    # operation: div (error)
+    cdc = CDC()
+    cdc.onecmd("div")
+    captured = capsys.readouterr()
+    assert captured.err.strip() == "Error: stack underflow"
+
 # T-DEL-REAL1
 def test_del_real1(capsys):
     # operation: delete (real stack)
