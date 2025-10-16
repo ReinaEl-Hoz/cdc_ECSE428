@@ -149,6 +149,23 @@ class CDC(cmd.Cmd):
         result = complex(a**2 - b**2, 2*a*b)
         self.stack.append(result)
         
+    def do_SQRT(self, arg=None):
+        """square root of the top stack value"""
+        if len(self.stack) == 0:
+            print("Error: stack underflow", file=sys.stderr)
+            return
+        
+        z = self.stack.pop()
+        a, b = z.real, z.imag
+        magnitude = abs(z)
+
+        u = math.sqrt((magnitude + a) / 2)
+        # sgn(b) * sqrt(...)
+        v = math.copysign(math.sqrt((magnitude - a) / 2), b)  
+        result = complex(u, v)
+        self.stack.append(result)
+
+        
     def do_exit(self, args=None):
         """Exit CLI"""
         print("Exiting the calculator!")
