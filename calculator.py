@@ -124,6 +124,19 @@ class CDC(cmd.Cmd):
         result = complex(round(real_part,9), round(imag_part,9)) 
         self.stack.append(result)
         
+    def do_ACOS(self, arg):
+        """arccosine of last stack value"""
+        if len(self.stack) == 0:
+            print("Error: stack underflow", file=sys.stderr)
+            return
+        
+        z = self.stack.pop()
+        j = complex(0, 1)
+
+        result = -j * cmath.log(z + cmath.sqrt(z - 1) * cmath.sqrt(z + 1))
+        result = complex(self.trunc(result.real, 9), self.trunc(result.imag, 9))
+        self.stack.append(result)
+        
     def do_exit(self, args=None):
         """Exit CLI"""
         print("Exiting the calculator!")
