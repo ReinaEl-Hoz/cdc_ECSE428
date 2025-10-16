@@ -70,6 +70,16 @@ class CDC(cmd.Cmd):
             return
         ans = num1 / num2
         self.stack.append(ans)
+        
+    def do_ABS(self, args=None):
+        """absolute value last number on stack """
+        if len(self.stack) == 0:
+            print("Error: stack underflow", file=sys.stderr)
+            return
+        z = self.stack.pop()
+        magnitude = abs(z)
+        self.stack.append(magnitude)
+        
 
     def do_exit(self, args=None):
         """Exit CLI"""
