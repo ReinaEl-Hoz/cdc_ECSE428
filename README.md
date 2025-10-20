@@ -33,7 +33,7 @@ In root of the project:
 pytest -v
 ```
 
-** Specifications **
+**Specifications**
 - Supports: PUSH, POP, ADD, SUB, MUL, DIV, DELETE, ABS, SIN, ASIN, COS, ACOS, SQR, SQRT.
 - Numbers may be real (e.g., 3, -2.5) or complex (e.g., 3+j4, -1.5-j2, j5).
 - Outputs follow canonical form: RVAL ± jIMAG. 
