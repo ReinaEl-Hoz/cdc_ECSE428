@@ -1,9 +1,28 @@
 # cdc_ECSE428
-Some notes to use for slide deck
 
-1. TDD Stage 1 - Unit Tests "Oct. 9th 2025"  
-At this stage, the complete unit test suite has been written according to the
-Comprehensive Unit Test Summary Table provided in the assignment.
+**Implemented by**
 
-  The test file is located at: tests/test_calculator.py
+- Mathis Bélanger - 261049961
+- Marianne Romero - 261176930
+- Reina El-Hoz - 261176008
 
+**Requirements**
+
+- python 3.14.0
+- pytest 8.4.2
+
+**How to run**
+
+In root of the project:
+
+```
+python3 calculator.py
+```
+
+**How to test**
+
+In root of the project:
+
+```
+pytest -v
+```
